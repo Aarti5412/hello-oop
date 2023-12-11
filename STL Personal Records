@@ -1,0 +1,98 @@
+#include <iostream>
+
+class person
+{
+public:
+    char name[100];
+    char dob[20];
+    long tel;
+
+    void getdata()
+    {
+        std::cout << "ENTER NAME: " << std::endl;
+        std::cin >> name;
+        std::cout << "ENTER BIRTHDATE: " << std::endl;
+        std::cin >> dob;
+        std::cout << "ENTER PHONE NUMBER: " << std::endl;
+        std::cin >> tel;
+    }
+
+    void displaydata()
+    {
+        std::cout << "\nNAME :-" << name << std::endl;
+        std::cout << "DATE OF BIRTH:-" << dob << std::endl;
+        std::cout << "TELEPHONE :-" << tel << std::endl;
+    }
+};
+
+int compare(const char *a, const char *b)
+{
+    while (*a != '\0' && *b != '\0' && *a == *b)
+    {
+        a++;
+        b++;
+    }
+
+    return *a - *b;
+}
+
+int main()
+{
+    int n;
+    std::cout << "ENTER TOTAL NUMBER OF RECORDS :-";
+    std::cin >> n;
+
+    person p[n];
+
+    for (int i = 0; i < n; i++)
+    {
+        p[i].getdata();
+    }
+
+    std::cout << "*****SORTED RECORD******" << std::endl;
+
+    for (int i = 0; i < n - 1; i++)
+    {
+        for (int j = 0; j < n - i - 1; j++)
+        {
+            if (compare(p[j].name, p[j + 1].name) > 0)
+            {
+                person temp = p[j];
+                p[j] = p[j + 1];
+                p[j + 1] = temp;
+            }
+        }
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        p[i].displaydata();
+    }
+
+    std::cout << std::endl;
+
+    char nm[100];
+    std::cout << "ENTER NAME TO BE SEARCH: ";
+    std::cin >> nm;
+
+    bool found = false;
+    for (int i = 0; i < n; i++)
+    {
+        if (compare(p[i].name, nm) == 0)
+        {
+            found = true;
+            break;
+        }
+    }
+
+    if (found)
+    {
+        std::cout << "****RECORD FOUND****";
+    }
+    else
+    {
+        std::cout << "****RECORD NOT FOUND****";
+    }
+
+    return 0;
+}
