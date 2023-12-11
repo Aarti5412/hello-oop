@@ -1,0 +1,39 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    char Give_Info[200];
+
+    FILE *Out_file = fopen("Information.bat", "w");
+    if (Out_file == nullptr)
+    {
+        cerr << "Error opening file for writing." << endl;
+        return 1;
+    }
+
+    cout << "\n\t Enter information to store it in the file (Not more than 200 characters):\n";
+    cin.getline(Give_Info, 200);
+
+    fprintf(Out_file, "%s", Give_Info);
+    fclose(Out_file);
+
+    char Get_Info[200];
+
+    FILE *In_file = fopen("Information.bat", "r");
+    if (In_file == nullptr)
+    {
+        cerr << "Error opening file for reading." << endl;
+        return 1;
+    }
+
+    fgets(Get_Info, 200, In_file);
+
+    cout << "\n\n\t Given Information is:\n";
+    cout << Get_Info;
+
+    fclose(In_file);
+
+    return 0;
+}
