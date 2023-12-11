@@ -1,0 +1,44 @@
+#include <iostream>
+
+struct Population {
+    char state[3];
+    int population;
+};
+
+int main() {
+    const int MAX_STATES = 4;
+    Population populationMap[MAX_STATES] = {{"MH", 112}, {"UP", 199}, {"MP", 726}, {"AP", 845}};
+
+    std::cout << "Size of populationMap: " << MAX_STATES << "\n";
+
+    for (int i = 0; i < MAX_STATES; ++i) {
+        std::cout << populationMap[i].state << ": " << populationMap[i].population << " million\n";
+    }
+
+    char stateInput[3];
+    std::cout << "\nEnter the state: ";
+    std::cin >> stateInput;
+
+    int populationResult = -1;
+    for (int i = 0; i < MAX_STATES; ++i) {
+        int j;
+        for (j = 0; stateInput[j] != '\0' && populationMap[i].state[j] != '\0'; ++j) {
+            if (stateInput[j] != populationMap[i].state[j]) {
+                break;
+            }
+        }
+
+        if (stateInput[j] == '\0' && populationMap[i].state[j] == '\0') {
+            populationResult = populationMap[i].population;
+            break;
+        }
+    }
+
+    if (populationResult != -1) {
+        std::cout << stateInput << " population is: " << populationResult << " million\n";
+    } else {
+        std::cout << "Key is not in populationMap";
+    }
+
+    return 0;
+}
